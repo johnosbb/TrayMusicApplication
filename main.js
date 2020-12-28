@@ -6,9 +6,11 @@ let tray
 let notification
 
 app.on('ready', ()=>{
-    if(process.platform=='darwin'){
+    const electronScreen = electron.screen
+    if(process.platform=='darwin' ){
         app.dock.hide()
     }
+
     win = new BrowserWindow({
         height:500,
         width: 400,
@@ -23,14 +25,19 @@ app.on('ready', ()=>{
     win.loadFile('index.html')
     tray = new Tray('images/iconTemplate.png')
     tray.setToolTip('Tray Music')
-
+    const { screenWidth, screenHeight } = electronScreen.getPrimaryDisplay().workAreaSize
+    if( process.platform=='linux')
+    {
+        win.hide()
+    }
     tray.on('click', (event, bounds)=>{
         let {x, y} = bounds
         let { width, height} = win.getBounds()
         if(win.isVisible()){
             win.hide()
         }else{
-            if(process.platform!='darwin'){
+            //const { width, height } = screen.getPrimaryDisplay().workAreaSize
+            if(process.platform!='darwin' ){
                 y = y - height
             }
             win.setBounds({
