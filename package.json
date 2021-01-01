@@ -4,7 +4,11 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=./icons/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . electron-music-app --overwrite --asar --platform=win32 --arch=ia64 --icon=./icons/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Electron Music App\"",    
+    "package-linux": "electron-packager . electron-music-app --overwrite --asar --platform=linux --arch=x64 --icon=./icons/icon.png --prune=true --out=release-builds"
+   
   },
   "author": "",
   "license": "ISC",
@@ -13,5 +17,11 @@
     "jquery": "^3.5.1",
     "music-metadata": "^4.2.0",
     "screen": "^0.2.10"
+  },
+  "devDependencies": {
+    "electron-packager": "^15.2.0"
   }
 }
+
+
+
